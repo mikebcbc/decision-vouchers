@@ -56,7 +56,7 @@ export default class App extends Component {
     console.log(this.state);
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to Decision Voucherss!</Text>
+        <Text style={styles.welcome}>Welcome to Decision Vouchers!</Text>
         { this.state.user &&
           <Button title="Logout" onPress={this.logout} />
         }
