@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "266581223678",
+    "firebase_url": "https://decision-vouchers.firebaseio.com",
+    "project_id": "decision-vouchers",
+    "storage_bucket": "decision-vouchers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266581223678:android:df4727b41332785d",
+        "android_client_info": {
+          "package_name": "com.mikeconstantino.decisionvouchers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266581223678-1kuqe43r734vb5k8ptki25pl8rsj6h0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAvLVJVKK6-fT4hn7d-1dn40PUz9sVB5Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
