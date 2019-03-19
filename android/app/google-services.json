@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:266581223678:android:df4727b41332785d",
+        "mobilesdk_app_id": "1:266581223678:android:a9bb7a7447b5d891",
         "android_client_info": {
           "package_name": "com.decisionvouchers"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "266581223678-rjplnq9t56cqjscgvihv1v0n86is68u7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.decisionvouchers",
+            "certificate_hash": "006e846c4f593094e9c70752fd3b6d7c4129c27b"
+          }
+        },
         {
           "client_id": "266581223678-1kuqe43r734vb5k8ptki25pl8rsj6h0n.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +37,20 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266581223678-1kuqe43r734vb5k8ptki25pl8rsj6h0n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "266581223678-mkv44f90i0q1p72l394ullevs2udvuvk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mikeconstantino.decisionvouchers"
+              }
+            }
+          ]
         },
         "ads_service": {
           "status": 2
