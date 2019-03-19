@@ -23,15 +23,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
     backgroundColor: '#F5FCFF',
+    marginBottom: 40
   },
   welcome: {
     fontSize: 15,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: 'center'
   },
   profile: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 50
   }
 });
