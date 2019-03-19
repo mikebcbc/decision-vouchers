@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'stretch',
-    padding: 15,
-    marginBottom: 'auto',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
