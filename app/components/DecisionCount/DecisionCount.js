@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableNativeFeedback } from 'react-native';
 
 export default class DecisionCount extends Component {
+
+  addDecision() {
+    console.log('decision added');
+    this.props.decisions.add({
+      title: 'A Decision',
+      complete: false
+    });
+  }
 
   render() {
     return (
@@ -11,7 +19,9 @@ export default class DecisionCount extends Component {
           <View style={styles.addsubtract}>
             <Text style={styles.counters}>-</Text>
             <Text style={styles.number}>25</Text>
-            <Text style={styles.counters}>+</Text>
+            <TouchableNativeFeedback onPress={() => this.addDecision()}>
+              <Text style={styles.counters}>+</Text>
+            </TouchableNativeFeedback>
           </View>
         </View>
         <View style={styles.decision}>

@@ -11,9 +11,9 @@ export default class LoggedInView extends Component {
       <View style={styles.container}>
         <LoginHeader name={this.props.user.displayName} profileImage={this.props.user.photoURL} />
         <Text style={styles.sectionTitle}>Decision Voucher Distribution</Text>
-        <DecisionCount />
+        <DecisionCount decisions={this.props.decisions} />
         <Text style={styles.sectionTitle}>Active Bets</Text>
-        <DecisionCount />
+        <DecisionCount decisions={this.props.decisions} />
         <Button onPress={this.props.logout} title="LOGOUT" />
       </View>
     );

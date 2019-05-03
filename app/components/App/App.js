@@ -14,6 +14,7 @@ export default class App extends Component {
     this.state = {
       user: null
     }
+    this.decisions = firebase.firestore().collection('decisions');
   }
 
   /**
@@ -29,7 +30,6 @@ export default class App extends Component {
     try {
       await GoogleSignin.configure();
 
-      console.log('signin');
       const data = await GoogleSignin.signIn();
 
       // create a new firebase credential with the token
@@ -55,7 +55,11 @@ export default class App extends Component {
           <LoggedOutView login={this.login} />
         }
         { this.state.user &&
-          <LoggedInView user={this.state.user._user} logout={this.logout} />
+          <LoggedInView
+            user={this.state.user._user}
+            logout={this.logout}
+            decisions={this.decisions}
+          />
         }
       </View>
     );
