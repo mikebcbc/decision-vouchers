@@ -14,7 +14,7 @@ export default class App extends Component {
     this.state = {
       user: null
     }
-    this.decisions = firebase.firestore().collection('decisions');
+    // this.decisionsRef = firebase.firestore().collection('decisions');
   }
 
   /**
@@ -48,7 +48,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('user', this.state.user);
     return (
       <View style={styles.container}>
         { !this.state.user &&
@@ -58,7 +57,6 @@ export default class App extends Component {
           <LoggedInView
             user={this.state.user._user}
             logout={this.logout}
-            decisions={this.decisions}
           />
         }
       </View>

@@ -3,12 +3,47 @@ import { StyleSheet, View, Text, TouchableNativeFeedback } from 'react-native';
 
 export default class DecisionCount extends Component {
 
+  constructor(props) {
+    super(props);
+    this.addDecision = this.addDecision.bind(this);
+  }
+
   addDecision() {
-    console.log('decision added');
-    this.props.decisions.add({
-      title: 'A Decision',
-      complete: false
-    });
+    this.props.voucherRef.get()
+      .then((snapshot) => {
+        console.log(snapshot.exists);
+        if (snapshot.exists) {
+          this.props.voucherRef.update({count: 3});
+        } else {
+          this.props.voucherRef.set({count: 1});
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    // firebase.firestore().runTransaction().then(result => console.log(result)).catch(e => console.log(e));
+      // .runTransaction(transaction => {
+      //   console.log('here');
+      //   const doc = transaction.get(this.props.voucherRef);
+      //   if (!doc.exists) {
+      //     transaction.set(this.props.voucherRef, { count: 1 });
+      //     return 1;
+      //   }
+
+      //   const newCount = doc.data().count + 1;
+
+      //   transaction.update(this.props.voucherRef, {
+      //     count: newCount
+      //   });
+
+      //   return newCount;
+      // })
+      // .then(newCount => {
+      //   console.log(`new count is ${newCount}`);
+      // })
+      // .catch(e => {
+      //   console.log(`transaction failure: ${e}`);
+      // });
   }
 
   render() {
@@ -19,7 +54,7 @@ export default class DecisionCount extends Component {
           <View style={styles.addsubtract}>
             <Text style={styles.counters}>-</Text>
             <Text style={styles.number}>25</Text>
-            <TouchableNativeFeedback onPress={() => this.addDecision()}>
+            <TouchableNativeFeedback onPress={this.addDecision}>
               <Text style={styles.counters}>+</Text>
             </TouchableNativeFeedback>
           </View>
