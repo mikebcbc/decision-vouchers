@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import ViewOverflow from 'react-native-view-overflow';
 import FlipCard from 'react-native-flip-card';
 import Carousel from 'react-native-snap-carousel';
 import firebase from 'react-native-firebase';
@@ -59,22 +60,33 @@ export default class ActiveBets extends Component {
   // }
 
   render() {
+    console.log(this.state.bets.length);
     return (
       <View style={styles.container}>
         <Carousel
           ref={(c) => {this._carousel = c;}}
           data={this.state.bets}
+          CellRendererComponent={ViewOverflow}
           sliderWidth={Dimensions.get('window').width}
           itemWidth={Dimensions.get('window').width / 1.5}
+          layout={'tinder'}
+          firstItem={this.state.bets.length - 1}
+          loop={true}
+          loopClonesPerSide={5}
           renderItem={({ item }) => (
-            <FlipCard style={styles.cardContainer}>
-              <View style={[styles.card, styles.frontCard]}>
-                <Text>{item}</Text>
-              </View>
-              <View style={[styles.card, styles.backCard]}>
-                <Text>Back</Text>
-              </View>
-            </FlipCard>
+            <ViewOverflow style={styles.cardContainer}>
+              <FlipCard
+                flipHorizontal={true}
+                flipVertical={false}
+              >
+                <View style={[styles.card, styles.frontCard]}>
+                  <Text>{item}</Text>
+                </View>
+                <View style={[styles.card, styles.backCard]}>
+                  <Text>Back</Text>
+                </View>
+              </FlipCard>
+            </ViewOverflow>
           )}
         />
       </View>
@@ -90,7 +102,6 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
     marginTop: 20,
     marginRight: 5,
     marginBottom: 20,
@@ -109,7 +120,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    elevation: 8
   },
   frontCard: {
 
