@@ -1,60 +1,69 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableNativeFeedback } from 'react-native';
+import firebase from 'react-native-firebase';
 
 export default class DecisionCount extends Component {
 
   constructor(props) {
     super(props);
-    this.addDecision = this.addDecision.bind(this);
+    this.voucherRef = firebase.firestore().collection('vouchers');
+    this.unsubscribe = null;
+
+    this.onCollectionUpdate = this.onCollectionUpdate.bind(this);
+
+    this.state = {
+      vouchers: {}
+    };
   }
 
-  addDecision() {
-    this.props.voucherRef.get()
+  componentDidMount() {
+    this.unsubscribe = this.voucherRef.onSnapshot(this.onCollectionUpdate);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onCollectionUpdate(querySnapshot) {
+    let vouchers = {};
+    querySnapshot.forEach((doc) => {
+      const { count } = doc.data();
+      const key = doc.id;
+
+      vouchers = Object.assign(vouchers, {
+        [key]: count
+      });
+    });
+
+    this.setState({ vouchers });
+  }
+
+  addDecision(user) {
+    const reffedDoc = this.voucherRef.doc(user);
+    reffedDoc.get()
       .then((snapshot) => {
-        console.log(snapshot.exists);
-        if (snapshot.exists) {
-          this.props.voucherRef.update({count: 3});
+        let count = snapshot.data() ? snapshot.data().count : null;
+        if (count) {
+          reffedDoc.update({count: count + 1});
         } else {
-          this.props.voucherRef.set({count: 1});
+          reffedDoc.set({count: 1});
         }
       })
       .catch((e) => {
         console.log(e);
       });
-    // firebase.firestore().runTransaction().then(result => console.log(result)).catch(e => console.log(e));
-      // .runTransaction(transaction => {
-      //   console.log('here');
-      //   const doc = transaction.get(this.props.voucherRef);
-      //   if (!doc.exists) {
-      //     transaction.set(this.props.voucherRef, { count: 1 });
-      //     return 1;
-      //   }
-
-      //   const newCount = doc.data().count + 1;
-
-      //   transaction.update(this.props.voucherRef, {
-      //     count: newCount
-      //   });
-
-      //   return newCount;
-      // })
-      // .then(newCount => {
-      //   console.log(`new count is ${newCount}`);
-      // })
-      // .catch(e => {
-      //   console.log(`transaction failure: ${e}`);
-      // });
   }
 
   render() {
+    console.log(this.state.vouchers);
     return (
       <View style={styles.container}>
         <View style={styles.decision}>
           <Text style={styles.heading}>Sof</Text>
           <View style={styles.addsubtract}>
             <Text style={styles.counters}>-</Text>
-            <Text style={styles.number}>25</Text>
-            <TouchableNativeFeedback onPress={this.addDecision}>
+            <Text style={styles.number}>{this.state.vouchers['Sofie']}</Text>
+            <TouchableNativeFeedback onPress={() => this.addDecision('Sofie')}>
               <Text style={styles.counters}>+</Text>
             </TouchableNativeFeedback>
           </View>
@@ -63,8 +72,8 @@ export default class DecisionCount extends Component {
           <Text style={styles.heading}>Mike</Text>
           <View style={styles.addsubtract}>
             <Text style={styles.counters}>-</Text>
-            <Text style={styles.number}>5</Text>
-            <Text style={styles.counters}>+</Text>
+            <Text style={styles.number}>{this.state.vouchers['Mike']}</Text>
+            <Text style={styles.counters} onPress={() => this.addDecision('Mike')}>+</Text>
           </View>
         </View>
       </View>
