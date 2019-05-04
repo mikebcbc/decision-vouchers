@@ -3,6 +3,7 @@ import { StyleSheet, View, Button, Text } from 'react-native';
 
 import LoginHeader from '../LoginHeader/LoginHeader';
 import DecisionCount from '../DecisionCount/DecisionCount';
+import ActiveBets from '../ActiveBets/ActiveBets';
 
 export default class LoggedInView extends Component {
 
@@ -13,7 +14,7 @@ export default class LoggedInView extends Component {
         <Text style={styles.sectionTitle}>Decision Voucher Distribution</Text>
         <DecisionCount user={this.props.user} />
         <Text style={styles.sectionTitle}>Active Bets</Text>
-        {/* <DecisionCount /> */}
+        <ActiveBets />
         <Button onPress={this.props.logout} title="LOGOUT" />
       </View>
     );

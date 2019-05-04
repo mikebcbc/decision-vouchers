@@ -55,7 +55,6 @@ export default class DecisionCount extends Component {
   }
 
   render() {
-    console.log(this.state.vouchers);
     return (
       <View style={styles.container}>
         <View style={styles.decision}>
