@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import FlipCard from 'react-native-flip-card';
+import Carousel from 'react-native-snap-carousel';
 import firebase from 'react-native-firebase';
 
 export default class ActiveBets extends Component {
@@ -17,7 +19,7 @@ export default class ActiveBets extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = this.betsRef.onSnapshot(this.onCollectionUpdate);
+    // this.unsubscribe = this.betsRef.onSnapshot(this.onCollectionUpdate);
   }
 
   componentWillUnmount() {
@@ -59,10 +61,21 @@ export default class ActiveBets extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <FlatList
+        <Carousel
+          ref={(c) => {this._carousel = c;}}
           data={this.state.bets}
-          horizontal={true}
-          renderItem={({item}) => <Text style={styles.card}>{item}</Text>}
+          sliderWidth={Dimensions.get('window').width}
+          itemWidth={Dimensions.get('window').width / 1.5}
+          renderItem={({ item }) => (
+            <FlipCard style={styles.cardContainer}>
+              <View style={[styles.card, styles.frontCard]}>
+                <Text>{item}</Text>
+              </View>
+              <View style={[styles.card, styles.backCard]}>
+                <Text>Back</Text>
+              </View>
+            </FlipCard>
+          )}
         />
       </View>
     );
@@ -71,16 +84,18 @@ export default class ActiveBets extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.33,
-    flexDirection: 'row',
+    flex: 0.66,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  card: {
+  cardContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    padding: 50,
-    margin: 10,
+    marginTop: 20,
+    marginRight: 5,
+    marginBottom: 20,
+    marginLeft: 5,
+    elevation: 8,
     // Figure out iOS below
     //
     // shadowColor: '#000000',
@@ -88,7 +103,26 @@ const styles = StyleSheet.create({
     //   width: 0,
     //   height: 0
     // },
-    // shadowRadius: 28,
-    elevation: 8
+    // shadowRadius: 28
+  },
+  card: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  frontCard: {
+
+  },
+  backCard: {
+
+  },
+  label: {
+    lineHeight: 470,
+    textAlign: 'center',
+    fontSize: 20,
+    fontFamily: 'System',
+    color: '#ffffff',
+    backgroundColor: 'transparent'
   }
 });
