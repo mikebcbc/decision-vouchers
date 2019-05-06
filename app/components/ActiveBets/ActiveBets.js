@@ -20,7 +20,7 @@ export default class ActiveBets extends Component {
   }
 
   componentDidMount() {
-    // this.unsubscribe = this.betsRef.onSnapshot(this.onCollectionUpdate);
+    this.unsubscribe = this.betsRef.onSnapshot(this.onCollectionUpdate);
   }
 
   componentWillUnmount() {
@@ -28,14 +28,15 @@ export default class ActiveBets extends Component {
   }
 
   onCollectionUpdate(querySnapshot) {
-    let bets = {};
+    let bets = [];
     querySnapshot.forEach((doc) => {
-      const { count } = doc.data();
+      const {
+        startedBy
+      } = doc.data();
       const key = doc.id;
 
       bets.push({
         key: doc.id,
-        doc,
         count
       });
     });
